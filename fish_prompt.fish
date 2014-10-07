@@ -1,5 +1,5 @@
 # name: GitStatus
-# Find latest version from: https://github.com/godfat/fish_prompt-gitstatus
+# Find latest version from: https://github.com/sergiors/fish_prompt-gitstatus
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
@@ -20,9 +20,7 @@ function _git_status_symbol
 end
 
 function _remote_hostname
-  if test -n "$SSH_CONNECTION"
-    echo (whoami)@(hostname)
-  end
+  echo (whoami)@(hostname)
 end
 
 function fish_prompt
@@ -33,8 +31,8 @@ function fish_prompt
   set -l git_status (_git_status_symbol)(_git_branch_name)
 
   if test -n "$git_status"
-    set git_status " $git_status"
+    set git_status " ($git_status)"
   end
 
-  echo -n (_remote_hostname) $cwd$cyan$git_status$normal'> '
+  echo -n '['(_remote_hostname) $cwd$cyan$git_status$normal']# '
 end
